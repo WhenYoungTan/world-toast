@@ -1,6 +1,5 @@
 gunicorn
 psycopg2
-random
 selenium
 bs4
 pandas
