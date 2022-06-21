@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block main %}
+
+    <div style="margin-top: 6vw;"></div>
+    <table class="giant_card">
+        <tr>
+            <th colspan="2">
+                <h4 class="center">Today's Country/Territory:</h4>
+                <h1 class="title_countryname">{{country_data[1]}}</h1>
+            </th>
+        </tr>
+        <tr>
+            <!--Embeded google maps, search string is provided by app.py through the embeded_search_string var -->
+            <th><iframe id="embeded_map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src={{ embeded_search_string }}></iframe></th>
+        </tr>
+        <tr>
+            <th><img src="{{ flags }}" id="country_flag"alt="Country Flag"></th>
+        </tr>
+
+        <tr>
+            <th colspan="2" class="intro_text">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="desc-tab" data-bs-toggle="tab" data-bs-target="#desc" type="button" role="tab" aria-controls="description" aria-selected="true" onclick="openTab('desc')"><h6>Desciption</h6></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="stat-tab" data-bs-toggle="tab" data-bs-target="#stats" type="button" role="tab" aria-controls="statistics" aria-selected="false" onclick="openTab('stats')"><h6>Statistics</h6></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="news-tab" data-bs-toggle="tab" data-bs-target="#news" type="button" role="tab" aria-controls="news" aria-selected="false" onclick="openTab('news')"><h6>Top News in {{country_data[1]}} today</h6></button>
+                    </li>
+                </ul>
+                
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active disspr" id="desc" role="tabpanel" aria-labelledby="desc-tab">
+                        <h6 class="tabcontent">{{ introduction_text }}</h6>
+                    </div>
+                    <div class="tab-pane fade disspr" id="stats" role="tabpanel" aria-labelledby="stat-tab">
+                        <table class="table tabcontent">
+                            <tr>
+                                <th>
+                                    <h6>Continent:{{country_data[2]}}</h6>
+                                </th>
+                                <th>
+                                    <h6>Region:{{country_data[3]}}</h6>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <h6>Population:{{country_data[6]}}</h6>
+                                </th>
+                                <th>
+                                    <h6>Average life-expectancy:{{country_data[7]}} years</h6>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <h6>Neighbours:</h6>
+                                </th>
+                                <th>
+                                    {% if 'Your country does not share a land border with any other country' == country_neighbours %}
+                                        <h6>Country does not share a land border with any other country</h6>
+                                    {% else %}
+                                        {% for neighbour in country_neighbours %}
+                                            <h6 style = "display: inline-block;"><a href="/searched?Country={{neighbour}}">{{neighbour}}</a></h6>
+                                        {% endfor %}
+                                    {% endif %}
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="news-pane fade tabcontent disspr d-none" id="news" role="tabpanel" aria-labelledby="news-tab">
+                        {% for n in range(10) %}
+                            <div class="news-container">
+                                <div class="columns columns-img">
+                                    <img src="{{ news[n]['urlToImage'] }}" id="country_flag" alt="news image">
+                                </div>
+                                <div class="columns columns-text">
+                                    <h6><a href="{{news[n]['url']}}">{{news[n]['title']}}</a></h6>
+                                </div>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                    </div>
+                </div>
+            </th>
+        </tr>
+    </table>
+    <script>
+        // Shows this particular element and hide the others
+        function openTab(element) {
+            var i, disspr, tablinks;
+            tabcontent = document.getElementsByClassName("disspr");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.add("d-none");
+            }
+
+            // Remove the background color of all tablinks/buttons
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.add("d-none");
+            }
+            // Show the specific tab content
+            document.getElementById(element).classList.remove("d-none");
+        }
+
+        var myIframe = document.getElementById('embeded_map');
+        myIframe.addEventListener("load", function() {
+            document.getElementById("embeded_map").setAttribute("height",document.getElementById("country_flag").clientHeight);
+        });
+    </script>
+
+
+{% endblock %}
