@@ -1,6 +1,5 @@
 gunicorn
 psycopg2
-sqlite3
 random
 selenium
 bs4
