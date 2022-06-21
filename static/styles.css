@@ -1,0 +1,352 @@
+body{
+    font-family: "Courier New", Times, serif;
+}
+
+a {
+  text-decoration: none;
+}
+/* title and logo */
+.title {
+    font-size: 30px;
+    padding:10px;
+    left:50%;
+    margin-left: -105px;
+    text-align: center;
+    top:0;
+    position: absolute;
+}
+
+/* The sidebar menu */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+
+/* The sidebar links */
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+    color: #f1f1f1;
+  }
+  
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+/* The button used to open the sidebar */
+.openbtn {
+    font-size: 30px;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    padding: 10px 15px;
+    border: none;
+    display: inline-block;
+  }
+  
+.openbtn:hover {
+    background-color:#F0F8FF;
+  }
+  
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+.giant_card {
+    width:50%;
+    margin:auto;
+
+    padding: 10px;
+
+}
+
+/*
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+*/
+
+th {
+  margin:auto;
+  text-align: center;
+}
+
+/* The main map */
+#embeded_map {
+    width:80%;
+    margin:auto;
+    display: inline-block;
+    border: 1px solid;
+}
+
+#country_flag {
+    width:80%;
+    margin:auto;
+    display: inline-block;
+    border: 1px solid;
+}
+
+#country_flag1 {
+  width:30%;
+  margin-left: 35%;
+  border: 1px solid;
+  text-align: center;
+}
+
+.intro_text {
+    padding:10%;
+    margin:auto;
+    font-size: 1vw;
+}
+
+.title_countryname {
+    font-size: 4vw;
+    padding: 5vw;
+    text-align: center;
+
+}
+
+.center {
+    text-align: center;
+    margin:auto;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 15px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+#myBtn {
+  position:absolute;
+  right:0;
+  top:0;
+  font-size: 30px;
+  background-color: white;
+  border:none;
+  padding: 10px 15px;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/*the container must be positioned relative:*/
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+
+input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+
+input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+  cursor: pointer;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #e9e9e9; 
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: DodgerBlue !important; 
+  color: #ffffff; 
+}
+
+/*cards*/
+.columns {
+    display: inline-block;
+    padding: 10px;
+    margin-bottom:2vw;
+    vertical-align:top;
+}
+
+.columns-card {
+  width:45%;
+}
+
+.columns-text {
+  width:60%;
+}
+
+.columns-img {
+  width:36%;
+  border: 1px solid
+}
+
+.news-container {
+  vertical-align:top;
+  display: inline-block;
+}
+
+.news-container:hover {
+  transform: scale(1.1);
+}
+
+.columns-text:hover {
+  transform: scale(1.1);
+}
+
+.card {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 3px solid rgb(216, 216, 216);
+  background-color:rgb(255, 255, 255);
+}
+
+.card-text{
+  margin: auto;
+  width: 70%;
+  text-align: center;
+  padding:10px;
+}
+
+.card-text:hover {
+  transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.card:hover {
+  transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-width: 800px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+
+    .giant_card {
+      width:100%;
+    }
+
+    .title_countryname {
+      font-size: 8vw;  
+    }
+
+    h6 {
+      font-size: 4vw;
+    }
+
+    .columns-card {
+      width:90%;
+    }
+  }
