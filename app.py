@@ -29,15 +29,22 @@ def format_list(list):
         temp_list.append(stuff[0])
     return temp_list
 
+def connect_database():
+    uri = os.getenv("postgres://lcjrnphmthsadr:93c383846c4cf1ab033b49b8e8a2b1de9c2f9db57863b543fb83c4fd520b0d90@ec2-54-164-40-66.compute-1.amazonaws.com:5432/dee3gpinska39v")
+    if uri.startswith("postgres://"):
+        uri = uri.replace("postgres://", "postgresql://")
+    con = sqlite3.connect(uri)
+    return con
+
 def find_flag(country_code):
-    con = sqlite3.connect('world_data.db')
+    con = connect_database()
     cur = con.cursor()
     flags = cur.execute("SELECT * FROM flags WHERE Code=\'" + country_code + "'").fetchall()[0]
     con.close()
     return flags[2]
 
 def check_neighbours(country_code):
-    con = sqlite3.connect('world_data.db')
+    con = connect_database()
     cur = con.cursor()
     country_neighbours = cur.execute("SELECT country.name, flags.Flag_image_url FROM country JOIN country_borders ON country.Code2 = country_borders.country_border_code JOIN flags ON country.Code2 = flags.Code WHERE country_borders.country_code=\'" + country_code + "'").fetchall()
     con.close()
@@ -69,7 +76,7 @@ def get_news(country_name):
 @app.route("/")
 def home():
     # Opens database and retrieve country's name
-    con = sqlite3.connect('world_data.db')
+    con = connect_database()
     cur = con.cursor()
     country_data = cur.execute("SELECT * FROM country WHERE rowid="+str(daily_random_number())).fetchall()[0]
     con.close()
@@ -97,7 +104,7 @@ def home():
 @app.route("/search")
 def search():
     # Formats all country names into a readable list
-    con = sqlite3.connect('world_data.db')
+    con = connect_database()
     cur = con.cursor()
     all_country_names = format_list(cur.execute("SELECT Name FROM country").fetchall())
     con.close()
@@ -109,7 +116,7 @@ def searched():
     chosen_country = request.args.get("Country")
 
     # Opens database and retrieve country's data
-    con = sqlite3.connect('world_data.db')
+    con = connect_database()
     cur = con.cursor()
     country_data = cur.execute("SELECT * FROM country WHERE name=\'" + chosen_country + "'").fetchall()
     con.close()
@@ -134,7 +141,7 @@ def searched():
     # Creates the search string for the embeded google map based on the country var. Search string by https://www.maps.ie/create-google-map/
     country_formated = country_data[1].replace(" ","-")
     embeded_search_string = "https://maps.google.com/maps?width=100%25&height=600&hl=en&q=" + country_formated + "()&t=&&ie=UTF8&iwloc=B&output=embed" 
-    
+
     # Get news info 
     news = get_news(country_data[1])["articles"]
     return render_template("index.html", embeded_search_string=embeded_search_string, country_data=country_data, flags=flags, introduction_text=introduction_text, country_neighbours = format_list(check_neighbours(country_data[14])), news = news)
