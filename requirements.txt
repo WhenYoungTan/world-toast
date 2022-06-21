@@ -1,0 +1,10 @@
+gunicorn
+psycopg2
+sqlite3
+random
+selenium
+bs4
+pandas
+flask
+datetime
+requests
